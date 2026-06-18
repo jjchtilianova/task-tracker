@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Tracker
+
+A full-stack project task tracker with Kanban board, list view, drag-and-drop, and inline editing.
+
+## Features
+
+- **Kanban board** grouped by workstream with drag-and-drop cards
+- **List view** with sortable columns
+- **Inline editing** — click Edit on any card to update in place
+- **Completion toggle** with animated checkbox
+- **Filter bar** — filter by assignee, workstream, status, and date range
+- **Summary strip** — live counts for total, completed, overdue, and in-progress tasks
+- **Priority badges** (Low / Medium / High)
+- **Assignee avatars** with color-coded initials
+
+## Tech Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4**
+- **Prisma 7** with SQLite (local) / PostgreSQL (production)
+- **SWR** for data fetching
+- **@dnd-kit** for drag-and-drop
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env
+npx prisma migrate dev
+npm run seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | Database connection string. Use `file:./dev.db` for local SQLite or a PostgreSQL URL for production. |
 
-## Learn More
+## API Routes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Method | Route | Description |
+|---|---|---|
+| GET/POST | `/api/tasks` | List all tasks / create a task |
+| GET/PUT/DELETE | `/api/tasks/[id]` | Get, update, or delete a task |
+| PATCH | `/api/tasks/[id]/complete` | Toggle task completion |
+| GET/POST | `/api/workstreams` | List / create workstreams |
+| GET/POST | `/api/members` | List / create team members |
